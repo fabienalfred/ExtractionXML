@@ -16,7 +16,7 @@ public class XMLHelper {
 		closeRoot(writer, root);
 		writer.flush();
 		writer.close();
-		System.out.println(">>> Ecriture terminée <<<");
+		System.out.println(">>> Ecriture terminée > " + fileName + " <<<");
 	}
 
 	private static void writePrologue(Writer writer) throws IOException {

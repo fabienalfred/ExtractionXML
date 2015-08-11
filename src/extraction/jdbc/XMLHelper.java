@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class XMLHelper {
 
-	public static void createFile(ResultSet rs, String fileName) throws IOException, SQLException{
+	public static void createFile(ResultSet rs, String fileName) throws IOException, SQLException {
 		Writer writer = new FileWriter(fileName);
 		ResultSetMetaData metaData = rs.getMetaData();
 		addPrologue(writer);
@@ -18,7 +18,7 @@ public class XMLHelper {
 		closeRoot(writer, metaData.getCatalogName(1));
 		writer.flush();
 		writer.close();
-		System.out.println(">>> Ecriture terminée <<<");
+		System.out.println(">>> Ecriture terminée > " + fileName + " <<<");
 	}
 
 	private static void addPrologue(Writer writer) throws IOException {
@@ -26,28 +26,28 @@ public class XMLHelper {
 	}
 
 	private static void openRoot(Writer writer, String root) throws IOException {
-		writer.write("<"+root+">");
+		writer.write("<" + root + ">");
 	}
 
 	private static void closeRoot(Writer writer, String root) throws IOException {
-		writer.write("</"+root+">");
+		writer.write("</" + root + ">");
 	}
 
 	private static void addChildren(Writer writer, ResultSet rs) throws SQLException, IOException {
 		ResultSetMetaData metaData = rs.getMetaData();
 		int nbColumns = metaData.getColumnCount();
 		StringBuffer buffer = new StringBuffer();
-		while(rs.next()){
+		while (rs.next()) {
 			buffer.setLength(0);
-			buffer.append("<"+metaData.getTableName(1)+">");
-			for(int i=1 ; i<=nbColumns ; i++){
-				buffer.append("<"+metaData.getColumnName(i)+">");
+			buffer.append("<" + metaData.getTableName(1) + ">");
+			for (int i = 1; i <= nbColumns; i++) {
+				buffer.append("<" + metaData.getColumnName(i) + ">");
 				buffer.append(rs.getString(i));
-				buffer.append("</"+metaData.getColumnName(i)+">");
+				buffer.append("</" + metaData.getColumnName(i) + ">");
 			}
-			buffer.append("</"+metaData.getTableName(1)+">");
+			buffer.append("</" + metaData.getTableName(1) + ">");
 			writer.write(buffer.toString());
 		}
 	}
-	
+
 }

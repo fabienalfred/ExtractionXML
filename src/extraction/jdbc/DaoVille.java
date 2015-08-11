@@ -11,8 +11,8 @@ public class DaoVille {
 	
 	public ResultSet getVillesByCodePostal(String cp) throws SQLException{
 		connect();
-		String sql = "SELECT * FROM villes WHERE code_postal LIKE ? ORDER BY code_postal";
-		PreparedStatement pstat = connection.prepareStatement(sql);
+		String query = "SELECT * FROM villes WHERE code_postal LIKE ? ORDER BY code_postal";
+		PreparedStatement pstat = connection.prepareStatement(query);
 		pstat.setString(1, cp+"%");
 		ResultSet rs = pstat.executeQuery();
 		return rs;
